@@ -63,7 +63,6 @@ abstract class Model
     {
         $db = new DatabaseConnection();
         $sql = 'SELECT COUNT(*) as count FROM ' . static::$table;
-
         $res = $db->query($sql, static::class);
 
         return isset($res[0]) ? intval($res[0]->count) : 0;
@@ -127,7 +126,7 @@ abstract class Model
     /**
      * @return bool
      */
-    public function delete()
+    public function delete(): bool
     {
         if ($this->isNew()) {
             return false;
@@ -135,7 +134,6 @@ abstract class Model
 
         $sql = 'DELETE FROM ' . static::$table . ' WHERE id = :id';
         $data[':id'] = $this->id;
-
         $db = new DatabaseConnection();
 
         return $db->execute($sql, $data);

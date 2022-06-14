@@ -35,6 +35,8 @@ class ReviewController extends Controller
             self::ROWS_PER_PAGE,
             $offset
         );
+        $loginController = new LoginController();
+        $user = $loginController->getCurrentUser();
         $this->view->reviews = $reviews;
         $this->view->display(
             __DIR__ . '/../../templates/review.php',
@@ -43,6 +45,8 @@ class ReviewController extends Controller
                 'column' => $column,
                 'paginate' => $paginate,
                 'totalPages' => $totalPages,
+                'user' => $user,
+                'reviewsCount' => $reviewsCount
             ]
         );
     }

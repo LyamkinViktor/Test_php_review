@@ -13,62 +13,66 @@
     <title>Отзывы</title>
 </head>
     <body>
+<!--Sorting by date-->
+        <?php if ($reviewsCount > 0) : ?>
+            <p>
+                <?php if (null != $user) : ?>
+                <a href="/?controller=AdminController&column=created_at&sort=<?php echo $sort; ?>">Сортировка по дате</a>
+                <?php else: ?>
+                <a href="/?column=created_at&sort=<?php echo $sort; ?>">Сортировка по дате</a>
+                <?php endif ?>
+            </p>
+        <?php endif ?>
+<!--End Sorting by date-->
 
-        <p>
-            <a href="/?column=created_at&sort=<?php echo $sort; ?>">
-                Сортировка по дате
-            </a>
-        </p>
-
+<!--Reviews-->
         <?php foreach ($reviews as $review) : ?>
-        <h3>
-            <p> <?php echo $review->getCreatedAt()->format('Y-m-d H:i:s'); ?> </p>
-        </h3>
+            <p> <b>Имя:</b> <?php echo $review->getName() ?> </p>
+            <p> <b>Отзыв:</b> <br> <?php echo $review->getText() ?> </p>
+            <p> <b>Дата:</b> <?php echo $review->getCreatedAt()->format('Y-m-d H:i:s'); ?> </p>
 
-            <p> <?php echo $review->getName() ?> </p>
-            <p> <?php echo $review->getText() ?> </p>
-
-            <?php if (null != $loginController->getCurrentUser() ) : ?>
-                <p>
-                    <form action="/?controller=ReviewDeleteController" method="post">
-                        <button type="submit" name="delete" value="<?php echo $review->getId() ?>">Удалить</button>
-                    </form>
-                </p>
+            <?php if (null != $user) : ?>
+                <form action="/?controller=ReviewDeleteController" method="post">
+                    <button type="submit" name="delete" value="<?php echo $review->getId() ?>">Удалить</button>
+                </form>
             <?php endif ?>
-        <hr>
+            <hr>
         <?php endforeach; ?>
+<!--End Reviews-->
 
-
-        <ul>
-            <li class="<?php if ($paginate == 1) { echo 'hide'; } ?>">
-                <?php if (null != $loginController->getCurrentUser() ) : ?>
-                    <a href="?controller=AdminController&paginate=1">First</a>
-                <?php else: ?>
-                    <a href="?paginate=1">First</a>
-                <?php endif ?>
-            </li>
-            <li class="<?php if ($paginate <= 1) { echo 'hide'; } ?>">
-                <?php if (null != $loginController->getCurrentUser() ) : ?>
-                    <a href="<?php echo "?controller=AdminController&paginate=" . ($paginate - 1); ?>">Prev</a>
-                <?php else: ?>
-                    <a href="<?php echo "?paginate=" . ($paginate - 1); ?>">Prev</a>
-                <?php endif ?>
-            </li>
-            <li class="<?php if ($paginate >= $totalPages) { echo 'hide'; } ?>">
-                <?php if (null != $loginController->getCurrentUser() ) : ?>
-                    <a href="<?php echo "?controller=AdminController&paginate=" . ($paginate + 1); ?>">Next</a>
-                <?php else: ?>
-                    <a href="<?php echo "?paginate=" . ($paginate + 1); ?>">Next</a>
-                <?php endif ?>
-            </li>
-            <li class="<?php if ($paginate == $totalPages) { echo 'hide'; } ?>">
-                <?php if (null != $loginController->getCurrentUser() ) : ?>
-                    <a href="?controller=AdminController&paginate=<?php echo $totalPages; ?>">Last</a>
-                <?php else: ?>
-                    <a href="?paginate=<?php echo $totalPages; ?>">Last</a>
-                <?php endif ?>
-            </li>
-        </ul>
-
+<!--Pagination-->
+        <?php if ($reviewsCount > 0) : ?>
+            <ul>
+                <li class="<?php if ($paginate == 1) { echo 'hide'; } ?>">
+                    <?php if (null != $user) : ?>
+                        <a href="?controller=AdminController&paginate=1">First</a>
+                    <?php else: ?>
+                        <a href="?paginate=1">First</a>
+                    <?php endif ?>
+                </li>
+                <li class="<?php if ($paginate <= 1) { echo 'hide'; } ?>">
+                    <?php if (null != $user) : ?>
+                        <a href="<?php echo "?controller=AdminController&paginate=" . ($paginate - 1); ?>">Prev</a>
+                    <?php else: ?>
+                        <a href="<?php echo "?paginate=" . ($paginate - 1); ?>">Prev</a>
+                    <?php endif ?>
+                </li>
+                <li class="<?php if ($paginate >= $totalPages) { echo 'hide'; } ?>">
+                    <?php if (null != $user) : ?>
+                        <a href="<?php echo "?controller=AdminController&paginate=" . ($paginate + 1); ?>">Next</a>
+                    <?php else: ?>
+                        <a href="<?php echo "?paginate=" . ($paginate + 1); ?>">Next</a>
+                    <?php endif ?>
+                </li>
+                <li class="<?php if ($paginate == $totalPages) { echo 'hide'; } ?>">
+                    <?php if (null != $user) : ?>
+                        <a href="?controller=AdminController&paginate=<?php echo $totalPages; ?>">Last</a>
+                    <?php else: ?>
+                        <a href="?paginate=<?php echo $totalPages; ?>">Last</a>
+                    <?php endif ?>
+                </li>
+            </ul>
+        <?php endif ?>
+<!--End Pagination-->
     </body>
 </html>

@@ -8,8 +8,10 @@
     <title>Администратор</title>
 </head>
     <body>
+
         <form action="/?controller=LoginController" method="post">
             <button type="submit" name="exit">Выйти</button>
         </form>
+
     </body>
 </html>

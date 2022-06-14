@@ -37,7 +37,7 @@ class Review extends Model
     /**
      * @return DateTime|false
      */
-    public function getCreatedAt()
+    public function getCreatedAt(): DateTime
     {
         return date_create_from_format('Y-m-d H:i:s', $this->created_at);
     }

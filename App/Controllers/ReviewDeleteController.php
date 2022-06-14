@@ -11,7 +11,6 @@ use App\Models\Review;
  */
 class ReviewDeleteController extends Controller
 {
-
     /**
      * Review delete controller.
      */
@@ -20,7 +19,9 @@ class ReviewDeleteController extends Controller
         if (count($_POST) > 0 && isset($_POST['delete'])) {
             /** @var Review $review */
             $review = Review::findById(intval(trim($_POST['delete'])));
-            $review->delete();
+            if ($review instanceof Review) {
+                $review->delete();
+            }
         }
         header('Location: /?controller=AdminController');
         exit;

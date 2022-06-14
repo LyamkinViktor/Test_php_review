@@ -9,7 +9,7 @@
 </head>
     <body>
 
-    <a href="/?controller=LoginController"><div>Админ-панель</div></a>
+    <a href="/?controller=LoginController">Админ-панель</a>
 
     <form action="/" method="post">
         <p><input type="text" name="author" placeholder="Имя" required></p>

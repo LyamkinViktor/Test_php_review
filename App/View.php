@@ -2,8 +2,6 @@
 
 namespace App;
 
-use App\Controllers\LoginController;
-
 /**
  * Class View
  * @package App
@@ -45,7 +43,6 @@ class View
      */
     public function display(string $template, array $params = [])
     {
-        $loginController = new LoginController();
         extract($this->data);
         extract($params);
         include $template;
